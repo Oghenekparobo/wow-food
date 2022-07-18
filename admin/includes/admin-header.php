@@ -1,3 +1,6 @@
+
+<?php include '../db/db.php' ?>
+<?php include 'functions/functions.php' ?>
 <html lang="en">
 
 <head>
@@ -9,3 +12,4 @@
 </head>
 
 <body>
+   

@@ -35,7 +35,7 @@ This is a Restaurant Theme Website Template, designed using html and css. It was
 
 ## For Sponsor or Project Enquiry
 1. Email - hi@vijaythapa.com
-
+// $
 
 ## Follow Me on
 1. LinkedIn - [vijaythapa](https://www.linkedin.com/in/vijaythapa/ "Vijay Thapa on LinkedIn")
