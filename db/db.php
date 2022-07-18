@@ -1,12 +1,9 @@
 <?php
-
+ob_start();
+session_start();
+define('SITEURL' , 'http://localhost/wow-food/');
 $conn = mysqli_connect('localhost' , 'root' , '' , 'food-order');
 if(!$conn){
-    die('no database connection'.mysqli_error());
+    echo "<script>alert('connection failed')</script>";
 }
-
-
-
-
-
  ?>
