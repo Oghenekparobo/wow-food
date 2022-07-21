@@ -9,8 +9,8 @@
         <!-- button to add admin -->
         <a href="add-admin.php" class="btn-primary">Add Admin</a>
         <br> <br> <br>
-      
-            <table class="tbl-full">
+
+        <table class="tbl-full">
             <tr>
                 <th>s/n</th>
                 <th>fullname</th>
@@ -18,47 +18,49 @@
                 <th>actions</th>
             </tr>
             <?php
-              $sql = "SELECT * FROM tbl_admin";
-        $query = mysqli_query($conn , $sql);
-         $i = 1;
-        
-        if(!$query) return "<script>alert('operation failed')</script>";
+            $sql = "SELECT * FROM tbl_admin";
+            $query = mysqli_query($conn, $sql);
+            $i = 1;
 
-        
-        while($row = mysqli_fetch_assoc($query)){ 
-            // $id =  $row['id'];
-            $fullname = $row['fullname'];
-            $username = $row['username'];
+            if (!$query) return "<script>alert('operation failed')</script>";
+
+
+            while ($row = mysqli_fetch_assoc($query)) {
+                $id =  $row['id'];
+                $fullname = $row['fullname'];
+                $username = $row['username'];
             ?>
-              <tr>
-                <td><?php echo  $i++ ?></td>
-                <td><?php echo  $fullname ?></td>
-                <td><?php echo  $username ?></td>
-                <td>
-                    <a href="" class="btn-secondary">update</a>
-                    <a href="@" class="btn-danger">delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td><?php echo  $i++ ?></td>
+                    <td><?php echo  $fullname ?></td>
+                    <td><?php echo  $username ?></td>
+                    <td>
+                    <a href="<?php echo SITEURL ?>admin/update-admin.php?id=<?php echo $id ?>" class="btn-secondary">update</a>
+                        <a href="<?php echo SITEURL ?>admin/change-password.php?id=<?php echo $id ?>" class="btn-primary">change password</a>
+                        <a href="<?php echo SITEURL ?>admin/includes/delete-admin.php?id=<?php echo $id ?>" class="btn-danger">delete</a>
+                    </td>
+                </tr>
             <?php
-        }
+            }
 
-         ?>
-          
+            ?>
+
         </table>
 
 
-            
+
+<?php 
+if(isset($_SESSION['update_password'])){
+    echo $_SESSION['update_password'];
+}
+?>
 
 
-        
-        
-        
+
+
     </div>
 
 </div>
 <!-- main content section ends-->
 
 <?php include 'includes/admin-footer.php' ?>
-        
-       
-
