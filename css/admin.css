@@ -85,6 +85,10 @@ table tr td{
 #error{ 
     color: #ff0f23;
 }
+
+.error{ 
+    color: #ff0f23;
+}
 /* css for menu */
 .menu{ 
 border-bottom: 1px solid green;

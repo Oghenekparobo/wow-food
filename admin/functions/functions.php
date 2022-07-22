@@ -1,5 +1,6 @@
 <?php
 
+// function to display admin
 function addAdmin()
 {
     global $conn;
@@ -22,6 +23,7 @@ function addAdmin()
     }
 }
 
+// function to update admin
 
 function updateAdmin()
 {
@@ -46,6 +48,7 @@ function updateAdmin()
     }
 }
 
+// function to change admin password
 function changeAdminPassword()
 {
     global  $conn;
@@ -74,13 +77,42 @@ function changeAdminPassword()
                 $update_query = mysqli_query($conn,   $update_sql);
                 if (!$update_query) {
                     echo " <script> alert('update failed')</script>";
-                 
-                 
                 }
             }
         }
 
 
         header('location:' . SITEURL . 'admin/manage-admin.php');
+    }
+}
+
+
+// function to login
+function login()
+{
+    global $conn;
+
+    if (isset($_POST['login'])) {
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+
+        $sql = "SELECT * FROM tbl_admin  WHERE password = '$password' AND username = '$username'";
+        $query = mysqli_query($conn , $sql);
+
+        if(!$query){
+            echo " <script> alert('hi, you no get name?')</script>";
+        }
+
+        $login_check = mysqli_num_rows($query);
+        if($login_check === 1){
+            header('location:' . SITEURL . 'admin');
+            $_SESSION['user'] = $username;
+           
+        }else{
+         echo " <script> alert('password do not match')</script>";
+        }
+
+
+        
     }
 }

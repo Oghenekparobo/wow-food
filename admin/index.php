@@ -1,6 +1,16 @@
 <?php include 'includes/admin-header.php' ?>
   
-<?php include 'includes/admin-nav.php' ?>
+<?php 
+include 'includes/admin-nav.php';
+
+// Autherizatio and access control
+if(!$_SESSION['user']){
+    header('location:' . SITEURL . 'admin/login.php');
+    $_SESSION['login'] = "<div class='error'>you won sow where you no reap</div>";
+}
+
+?>
+
     <!-- main content section starts -->
     <div class="main-content">
         <div class="wrapper">

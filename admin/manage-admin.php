@@ -1,6 +1,8 @@
 <?php include 'includes/admin-header.php' ?>
 
 <?php include 'includes/admin-nav.php' ?>
+
+
 <!-- main content section starts -->
 <div class="main-content">
     <div class="wrapper">
@@ -18,12 +20,14 @@
                 <th>actions</th>
             </tr>
             <?php
+            // get admin data from database
             $sql = "SELECT * FROM tbl_admin";
             $query = mysqli_query($conn, $sql);
             $i = 1;
 
             if (!$query) return "<script>alert('operation failed')</script>";
 
+            // display admin data on page
 
             while ($row = mysqli_fetch_assoc($query)) {
                 $id =  $row['id'];
@@ -35,7 +39,7 @@
                     <td><?php echo  $fullname ?></td>
                     <td><?php echo  $username ?></td>
                     <td>
-                    <a href="<?php echo SITEURL ?>admin/update-admin.php?id=<?php echo $id ?>" class="btn-secondary">update</a>
+                        <a href="<?php echo SITEURL ?>admin/update-admin.php?id=<?php echo $id ?>" class="btn-secondary">update</a>
                         <a href="<?php echo SITEURL ?>admin/change-password.php?id=<?php echo $id ?>" class="btn-primary">change password</a>
                         <a href="<?php echo SITEURL ?>admin/includes/delete-admin.php?id=<?php echo $id ?>" class="btn-danger">delete</a>
                     </td>
@@ -48,12 +52,6 @@
         </table>
 
 
-
-<?php 
-if(isset($_SESSION['update_password'])){
-    echo $_SESSION['update_password'];
-}
-?>
 
 
 
