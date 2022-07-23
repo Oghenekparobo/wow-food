@@ -1,55 +1,77 @@
 <?php include 'includes/admin-header.php' ?>
-  
+
 <?php include 'includes/admin-nav.php' ?>
-    <!-- main content section starts -->
-    <div class="main-content">
-        <div class="wrapper">
-           <h1>Add Category</h1>
-<br> <br>
-<a href="" class="btn-primary">Add Category</a>
-           <br> <br> <br>
+<!-- main content section starts -->
+<div class="main-content">
+    <div class="wrapper">
+        <h1>Add Category</h1>
+        <br> <br>
+        <a href="add-category.php" class="btn-primary">Add Category</a>
+        <br> <br><br>
+
         <table class="tbl-full">
             <tr>
                 <th>s/n</th>
-                <th>fullname</th>
-                <th>username</th>
+                <th>title</th>
+                <th>image</th>
+                <th>featured</th>
+                <th>active</th>
                 <th>actions</th>
             </tr>
 
-            <tr>
-                <td>1</td>
-                <td>stephen</td>
-                <td>pablo</td>
-                <td>
-                    <a href="" class="btn-secondary">update</a>
-                    <a href="@" class="btn-danger">delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>stephen</td>
-                <td>pablo</td>
-                <td>
-                    <a href="" class="btn-secondary">update</a>
-                    <a href="@" class="btn-danger">delete</a>
-                </td>
+            <?php
 
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>stephen</td>
-                <td>pablo</td>
-                <td>
-                    <a href="" class="btn-secondary">update</a>
-                    <a href="@" class="btn-danger">delete</a>
-                </td>
-            </tr>
+            $sql = "SELECT * FROM tbl_category";
+            $query = mysqli_query($conn, $sql);
+            $sn = 1;
+
+            if (!$query) {
+                echo " <script> alert('query failed')</script>";
+            }
+
+            while ($row = mysqli_fetch_assoc($query)) {
+                $id = $row['id'];
+                $title = $row['title'];
+                $img = $row['img'];
+                $featured = $row['featured'];
+                $active = $row['active'];
+            ?>
+
+                <tr>
+                    <td><?php echo $sn++ ?></td>
+                    <td><?php echo $title ?></td>
+                    <td><?php
+
+                        if (!empty($img)) {
+                        ?>
+                            <img src="<?php echo SITEURL?>images/category_img/<?php echo $img ?>" width="150px" alt="img">
+                        <?php
+                        } else {
+                            echo "<img src='' alt='img'>";
+                        }
+
+                        ?>
+                    </td>
+                    <td><?php echo $featured ?></td>
+                    <td><?php echo $active ?></td>
+                    <td>
+                        <a href="" class="btn-secondary">update</a>
+                        <a href="@" class="btn-danger">delete</a>
+                    </td>
+                </tr>
+            <?php
+            }
+
+
+            ?>
+
+
         </table>
-        </div>
-
-      
-
     </div>
-    <!-- main content section ends-->
 
-    <?php include 'includes/admin-footer.php' ?>
+
+
+</div>
+<!-- main content section ends-->
+
+<?php include 'includes/admin-footer.php' ?>

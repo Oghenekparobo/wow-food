@@ -97,22 +97,82 @@ function login()
         $password = md5($_POST['password']);
 
         $sql = "SELECT * FROM tbl_admin  WHERE password = '$password' AND username = '$username'";
-        $query = mysqli_query($conn , $sql);
+        $query = mysqli_query($conn, $sql);
 
-        if(!$query){
+        if (!$query) {
             echo " <script> alert('hi, you no get name?')</script>";
         }
 
         $login_check = mysqli_num_rows($query);
-        if($login_check === 1){
+        if ($login_check === 1) {
             header('location:' . SITEURL . 'admin');
             $_SESSION['user'] = $username;
-           
-        }else{
-         echo " <script> alert('password do not match')</script>";
+        } else {
+            echo " <script> alert('password do not match')</script>";
+        }
+    }
+}
+
+
+// function to add category
+function addCategory()
+{
+
+    global $conn;
+
+    if (isset($_POST['add-category'])) {
+        $title = $_POST['title'];
+
+        if (isset($_FILES['image']['name'])) {
+            //    upload image;
+            // image nameF
+            $image_name = $_FILES['image']['name'];
+            // auto rename our image
+            // get the extension of our image .jpg .gif .png e.t.c
+            $ext1 = explode('.', $image_name);
+            $ext = end($ext1);
+            
+            // rename the image
+            $image_name = "food_category" . rand(000, 999) . '.' . $ext;
+
+            // source path
+            $source_path = $_FILES['image']['tmp_name'];
+            // destination path
+            $destination_path = '../images/category_img/' . $image_name;
+
+            // function to upload the image
+            $upload = move_uploaded_file($source_path, $destination_path);
+            if (!$upload) {
+                echo " <script> alert('failed to upload image')</script>";
+            }
         }
 
+        if (isset($_POST['featured'])) {
+            if ($_POST['featured'] === 'yes') {
+                $featured = $_POST['featured'];
+            } else {
+                $featured = 'no';
+            }
+        }
+        if (isset($_POST['active'])) {
+            if ($_POST['active'] === 'yes') {
+                $active = $_POST['active'];
+            } else {
+                $active = 'no';
+            }
+        }
 
-        
+        if (!empty($title) && !empty($featured) && !empty($active)  && !empty($image_name)) {
+            $sql = "INSERT INTO tbl_category (title ,img, featured , active) VALUES('$title','$image_name','$featured','$active')";
+            $query = mysqli_query($conn, $sql);
+
+            if (!$query) {
+                echo " <script> alert('query failed')</script>";
+            }
+        } else {
+            echo " <script> alert('please fill in the required feild')</script>";
+        }
+
+        header('location:' . SITEURL . 'admin/manage-category.php');
     }
 }
