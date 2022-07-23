@@ -44,7 +44,7 @@
 
                         if (!empty($img)) {
                         ?>
-                            <img src="<?php echo SITEURL?>images/category_img/<?php echo $img ?>" width="150px" alt="img">
+                            <img src="<?php echo SITEURL?>images/category_img/<?php echo $img ?>" width="100px" alt="img">
                         <?php
                         } else {
                             echo "<img src='' alt='img'>";
@@ -55,8 +55,8 @@
                     <td><?php echo $featured ?></td>
                     <td><?php echo $active ?></td>
                     <td>
-                        <a href="" class="btn-secondary">update</a>
-                        <a href="@" class="btn-danger">delete</a>
+                        <a href="<?php echo SITEURL ?>admin/update-category.php?id=<?php echo $id ?>&image_name =<?php echo $img ?>  "   class="btn-secondary">update</a>
+                        <a href="<?php echo SITEURL ?>admin/includes/delete-category.php?id=<?php echo $id ?>"  class="btn-danger">delete</a>
                     </td>
                 </tr>
             <?php

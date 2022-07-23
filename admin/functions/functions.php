@@ -127,23 +127,26 @@ function addCategory()
             //    upload image;
             // image nameF
             $image_name = $_FILES['image']['name'];
-            // auto rename our image
-            // get the extension of our image .jpg .gif .png e.t.c
-            $ext1 = explode('.', $image_name);
-            $ext = end($ext1);
-            
-            // rename the image
-            $image_name = "food_category" . rand(000, 999) . '.' . $ext;
 
-            // source path
-            $source_path = $_FILES['image']['tmp_name'];
-            // destination path
-            $destination_path = '../images/category_img/' . $image_name;
+            if (!empty($image_name)) {
+                // auto rename our image
+                // get the extension of our image .jpg .gif .png e.t.c
+                $ext1 = explode('.', $image_name);
+                $ext = end($ext1);
 
-            // function to upload the image
-            $upload = move_uploaded_file($source_path, $destination_path);
-            if (!$upload) {
-                echo " <script> alert('failed to upload image')</script>";
+                // rename the image
+                $image_name = "food_category" . rand(000, 999) . '.' . $ext;
+
+                // source path
+                $source_path = $_FILES['image']['tmp_name'];
+                // destination path
+                $destination_path = '../images/category_img/' . $image_name;
+
+                // function to upload the image
+                $upload = move_uploaded_file($source_path, $destination_path);
+                if (!$upload) {
+                    echo " <script> alert('failed to upload image')</script>";
+                }
             }
         }
 
@@ -176,3 +179,4 @@ function addCategory()
         header('location:' . SITEURL . 'admin/manage-category.php');
     }
 }
+
