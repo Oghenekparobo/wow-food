@@ -180,3 +180,70 @@ function addCategory()
     }
 }
 
+// function to add food
+function addFood()
+{
+    global $conn;
+    if (isset($_POST['add-food'])) {
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $price = $_POST['price'];
+        $category = $_POST['category'];
+
+        if (isset($_FILES['image']['name'])) {
+            //    upload image;
+            // image nameF
+            $image_name = $_FILES['image']['name'];
+
+            if (!empty($image_name)) {
+                // auto rename our image
+                // get the extension of our image .jpg .gif .png e.t.c
+                $ext1 = explode('.', $image_name);
+                $ext = end($ext1);
+
+                // rename the image
+                $image_name = "food_name" . rand(000, 999) . '.' . $ext;
+
+                // source path
+                $source_path = $_FILES['image']['tmp_name'];
+                // destination path
+                $destination_path = '../images/category_img/' . $image_name;
+
+                // function to upload the image
+                $upload = move_uploaded_file($source_path, $destination_path);
+                if (!$upload) {
+                    echo " <script> alert('failed to upload image')</script>";
+                }
+            }
+        }
+
+        if (isset($_POST['featured'])) {
+            if ($_POST['featured'] === 'yes') {
+                $featured = $_POST['featured'];
+            } else {
+                $featured = 'no';
+            }
+        }
+        if (isset($_POST['active'])) {
+            if ($_POST['active'] === 'yes') {
+                $active = $_POST['active'];
+            } else {
+                $active = 'no';
+            }
+        }
+
+        if(!empty($title) && !empty($description) && !empty($price) && !empty($category) && !empty($featured) && !empty($active)){
+
+            $sql = "INSERT INTO tbl_food (title, description , price, category_id , featured, active , img) VALUES('$title','$description','$price' , '$category' , '$featured' , '$active' , '$image_name')";
+            $query = mysqli_query($conn , $sql);
+            if(!$query){
+                echo " <script> alert('failed to add food')</script>";
+            }
+        }else{
+            echo " <script> alert('please fill in the required team')</script>";
+        }
+
+        header('location:' . SITEURL . 'admin/manage-food.php');
+
+    }
+}
