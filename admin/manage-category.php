@@ -4,7 +4,7 @@
 <!-- main content section starts -->
 <div class="main-content">
     <div class="wrapper">
-        <h1>Add Category</h1>
+        <h1>Manage Category</h1>
         <br> <br>
         <a href="add-category.php" class="btn-primary">Add Category</a>
         <br> <br><br>
@@ -40,7 +40,8 @@
                 <tr>
                     <td><?php echo $sn++ ?></td>
                     <td><?php echo $title ?></td>
-                    <td><?php
+                    <td>
+                        <?php
 
                         if (!empty($img)) {
                         ?>
@@ -55,8 +56,8 @@
                     <td><?php echo $featured ?></td>
                     <td><?php echo $active ?></td>
                     <td>
-                        <a href="<?php echo SITEURL ?>admin/update-category.php?id=<?php echo $id ?>&image_name =<?php echo $img ?>  "   class="btn-secondary">update</a>
-                        <a href="<?php echo SITEURL ?>admin/includes/delete-category.php?id=<?php echo $id ?>"  class="btn-danger">delete</a>
+                        <a href="<?php echo SITEURL ?>admin/update-category.php?id=<?php echo $id ?>&image_name=<?php echo $img ?>"   class="btn-secondary">update</a>
+                        <a href="<?php echo SITEURL ?>admin/includes/delete-category.php?id=<?php echo $id ?>&image_name=<?php echo $img ?>"  class="btn-danger">delete</a>
                     </td>
                 </tr>
             <?php

@@ -59,8 +59,8 @@
                     <td><?php echo $featured ?></td>
                     <td><?php echo $active ?></td>
                     <td>
-                        <a href="" class="btn-secondary">update</a>
-                        <a href="" class="btn-danger">delete</a>
+                        <a href="<?php echo SITEURL ?>admin/update-food.php?id=<?php echo $id ?>&image_name=<?php echo $img ?>" class="btn-secondary">update</a>
+                        <a href="<?php echo SITEURL ?>admin/includes/delete-food.php?id=<?php echo $id ?>&image_name=<?php echo  $img ?>"  class="btn-danger">delete</a>
                     </td>
                 </tr>
             <?php

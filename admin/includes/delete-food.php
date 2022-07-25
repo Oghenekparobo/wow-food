@@ -13,11 +13,16 @@ if(isset($_GET['image_name'])){
     if(!empty($image_name)){ 
         $path = '../images/category_img/'.$image_name;
         $remove = unlink($path);
+
+        if(!$remove){
+            echo "<script>alert('failed to remove')<script>";
+        }
+        
     }
 }
 
 
-$sql = "DELETE FROM tbl_category WHERE id =  $id";
+$sql = "DELETE FROM tbl_food WHERE id =  $id";
 $query = mysqli_query( $conn ,  $sql);
 
 if(!$query){
@@ -25,4 +30,4 @@ if(!$query){
 
 }
 
-header('location:'.SITEURL.'admin/manage-category.php');
+header('location:'.SITEURL.'admin/manage-food.php');
