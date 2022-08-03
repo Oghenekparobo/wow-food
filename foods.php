@@ -21,7 +21,6 @@
         <h2 class="text-center">Food Menu</h2>
 
         <?php
-
         $sql = "SELECT *FROM tbl_food WHERE active = 'yes' AND featured = 'yes'";
         $query = mysqli_query($conn, $sql);
 
@@ -46,7 +45,7 @@
                     </p>
                     <br>
 
-                    <a href="#" class="btn btn-primary">Order Now</a>
+                    <a href="order.php" class="btn btn-primary">Order Now</a>
                 </div>
             </div>
 
