@@ -9,17 +9,14 @@
         if (isset($_GET['cat_id'])) {
             $cat_id = $_GET['cat_id'];
 
-            $sql = "SELECT id FROM tbl_category WHERE id=$cat_id";
+            $sql = "SELECT title FROM tbl_category WHERE id= $cat_id";
             $query = mysqli_query($conn, $sql);
 
             if (!$query) {
                 die('query failed' . mysqli_error($conn));
             }
-                $row = mysqli_fetch_row($query);
-                $title = $row['title'];
-            
-
-           
+            $row = mysqli_fetch_assoc($query);
+            $title = $row['title'];
         }
         ?>
 
@@ -37,16 +34,16 @@
     <div class="container">
         <h2 class="text-center">Food Menu</h2>
 
-        <?php 
-       
-         $sql = "SELECT * FROM tbl_food WHERE id =  $cat_id";
-         $query = mysqli_query( $conn ,  $sql);
-         if(!$query){
-            die('query failed'.mysqli_error($conn));
-         }
- 
-        
-         while ($row = mysqli_fetch_assoc($query)) {
+        <?php
+
+        $sql = "SELECT * FROM tbl_food WHERE id =  $cat_id";
+        $query = mysqli_query($conn,  $sql);
+        if (!$query) {
+            die('query failed' . mysqli_error($conn));
+        }
+
+
+        while ($row = mysqli_fetch_assoc($query)) {
             $id = $row['id'];
             $title = $row['title'];
             $img = $row['img'];

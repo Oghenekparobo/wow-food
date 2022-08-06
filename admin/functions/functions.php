@@ -302,7 +302,7 @@ function updateFood()
             if ($_POST['active'] === 'yes') {
                 $active = $_POST['active'];
             } else {
-            echo $active = 'no';
+                echo $active = 'no';
             }
         }
 
@@ -312,13 +312,122 @@ function updateFood()
             $query = mysqli_query($conn, $sql);
             if (!$query) {
                 echo " <script> alert('failed to update food')</script>";
-            }else{
+            } else {
                 header('location:' . SITEURL . 'admin/manage-food.php');
             }
         } else {
             echo " <script> alert('please fill in the required team')</script>";
         }
+    }
+}
 
-       
+// function to display order
+function displayOrder()
+{
+    global $conn;
+
+    $sql = "SELECT * FROM tbl_order ORDER BY id DESC";
+    $query = mysqli_query($conn, $sql);
+
+    if (!$query) {
+        die('query failed' . mysqli_error($conn));
+    }
+
+    $sn = 1;
+
+    while ($row = mysqli_fetch_assoc($query)) {
+
+        $id =  $row['id'];
+        $food =  $row['food'];
+        $price =  $row['price'];
+        $quantity =  $row['quantity'];
+        $total =  $row['total'];
+        $order_date =  $row['order_date'];
+        $status =  $row['status'];
+        $customer_name =  $row['customer_name'];
+        $customer_email =  $row['customer_email'];
+        $customer_address =  $row['customer_address'];
+        $customer_contact =  $row['customer_contact'];
+
+
+
+?>
+        <tr>
+
+            <td><?php echo  $sn++ ?></td>
+            <td><?php echo  $food ?></td>
+            <td><?php echo  $price ?></td>
+            <td><?php echo  $quantity ?></td>
+            <td><?php echo  $total ?></td>
+            <td><?php echo  $order_date ?></td>
+            <td><?php
+                if ($status === 'ordered') {
+                    echo "<label style='color:orange'> $status</label>";
+                } elseif ($status === 'canceled') {
+                    echo "<label style='color:red'> $status</label>";
+                } elseif ($status === 'delivered') {
+                    echo "<label style='color:green'> $status</label>";
+                } else {
+                    echo 'pending';
+                }
+
+                ?></td>
+            <td><?php echo  $customer_name ?></td>
+            <td><?php echo  $customer_contact ?></td>
+            <td><?php echo  $customer_email ?></td>
+            <td><?php echo  $customer_address ?></td>
+
+            <td>
+                <a href="<?php echo SITEURL ?>admin/includes/delete-order.php?id=<?php echo $id ?>" class="btn-danger">delete</a>
+                <a href="<?php echo SITEURL ?>admin/update-order.php?update_id=<?php echo $id ?>" class="btn-primary">update</a>
+
+                <!-- <a href="@" class="btn-danger">delete</a> -->
+            </td>
+        </tr>
+<?php
+
+    }
+}
+
+
+// function to update order
+function updateOrder()
+{
+    global $conn;
+
+    if (isset($_GET['update_id'])) {
+        $id = $_GET['update_id'];
+    }
+
+    if (isset($_POST['update-order'])) {
+
+        $quantity =  $_POST['quantity'];
+        $customer_name =  $_POST['name'];
+        $customer_email =  $_POST['email'];
+        $customer_address =  $_POST['address'];
+        $customer_contact =  $_POST['contact'];
+
+
+
+        if (isset($_POST['status'])) {
+            if ($_POST['status'] === 'ordered') {
+                $status = $_POST['status'];
+            } else if ($_POST['status'] === 'canceled') {
+                $status = $_POST['status'];
+            } else if ($_POST['status'] === 'delivered') {
+                $status = $_POST['status'];
+            } else {
+                $status = 'pending';
+            }
+        }
+
+        $sql = "UPDATE tbl_order set quantity = '$quantity', status = '$status', customer_name = '$customer_name', customer_email = '$customer_email' , customer_address = '$customer_address' , customer_contact  = '$customer_contact' WHERE id = $id";
+        $query = mysqli_query($conn , $sql);
+
+        if (!$query) {
+            die('query failed' . mysqli_error($conn));
+        }
+
+        header('location:' . SITEURL . 'admin/manage-order.php');
     }
 }

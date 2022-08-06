@@ -57,7 +57,7 @@
 
         <?php
 
-        $sql = "SELECT *FROM tbl_food WHERE active = 'yes' AND featured = 'yes' LIMIT 6";
+        $sql = "SELECT * FROM tbl_food WHERE active = 'yes' AND featured = 'yes' LIMIT 6";
         $query = mysqli_query($conn, $sql);
 
         while ($row = mysqli_fetch_assoc($query)) {
@@ -81,7 +81,7 @@
                     </p>
                     <br>
 
-                    <a href="order.php" class="btn btn-primary">Order Now</a>
+                    <a href="order.php?food_id=<?php echo $id  ?>" class="btn btn-primary">Order Now</a>
                 </div>
             </div>
 

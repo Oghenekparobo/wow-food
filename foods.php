@@ -53,12 +53,6 @@
         }
 
         ?>
-
-
-
-
-
-
         <div class="clearfix"></div>
 
 
